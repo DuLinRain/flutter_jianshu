@@ -70,15 +70,6 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  fonts:
-    - family: PingFangSc
-      fonts:
-        - asset: fonts/pingfangSc-thin.ttf
-          weight: 300
-        - asset: fonts/pingfangSc-normal.ttf
-          weight: 400
-        - asset: fonts/pingfangSc-bold.ttf
-          weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
