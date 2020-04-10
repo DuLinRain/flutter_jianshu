@@ -21,6 +21,12 @@ class _ArticleListState extends State<ArticleList> {
       color: Color(0xff515151)
   );
 
+  /// 文章底部栏文字按钮
+  TextStyle bottomBarTextStyle = TextStyle(
+      fontSize: 22.sp,
+      color: Color(0xff999999)
+  );
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 750, height: 1334, allowFontScaling: false);
@@ -65,7 +71,8 @@ class _ArticleListState extends State<ArticleList> {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: 20.w
+              top: 20.w,
+              bottom: 24.w
             ),
             child: Text(
               '有人说：“不必把太多人请进生命里，若他们走进不了你的内心，就只会把你的生命搅扰得拥挤不堪。” 朋友不必多，贵在能知心。珍贵的情谊，要留给最值得结交的人。一个人是否值得交往，看这四点就够了。',
@@ -73,7 +80,8 @@ class _ArticleListState extends State<ArticleList> {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
-          )
+          ),
+          _buildNormalBottomBar(context)
         ],
       ),
     );
@@ -98,8 +106,9 @@ class _ArticleListState extends State<ArticleList> {
         children: <Widget>[
           Text('“胸大就是风骚吗？”：比起别人的看法，你更该得到自己的肯定', style: titleStyle,),
           Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 20.w
+            padding: EdgeInsets.only(
+              top: 20.w,
+              bottom: 24.w
             ),
             child: Flex(
               direction: Axis.horizontal,
@@ -119,7 +128,7 @@ class _ArticleListState extends State<ArticleList> {
                   flex: 0,
                   child: Container(
                     margin: EdgeInsets.only(
-                      left: 40.w
+                      left: 30.w
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10.w),
@@ -134,9 +143,79 @@ class _ArticleListState extends State<ArticleList> {
                 )
               ],
             ),
-          )
+          ),
+          _buildNormalBottomBar(context)
         ],
       ),
+    );
+  }
+
+  /// 文章通用底部栏
+  Widget _buildNormalBottomBar (BuildContext context) {
+    return Flex(
+      direction: Axis.horizontal,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Row(
+            children: <Widget>[
+              Icon(
+                IconData(0xe606, fontFamily: 'iconfont'),
+                color: Theme.of(context).primaryColor,
+                size: 26.sp,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: 6.w,
+                    right: 14.w
+                ),
+                child: Text('80.964', style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 22.sp
+                ),),
+              ),
+              Text(
+                '写bug的程序员',
+                style: bottomBarTextStyle,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: 16.w,
+                    right: 16.w
+                ),
+                child: Text(
+                  '759 阅读',
+                  style: bottomBarTextStyle,
+                ),
+              ),
+              Text(
+                '1 评论',
+                style: bottomBarTextStyle,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: 16.w
+                ),
+                child: Text(
+                  '20 赞',
+                  style: bottomBarTextStyle,
+                ),
+              )
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 0,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            child: Icon(
+              IconData(0xe681, fontFamily: 'iconfont'),
+              size: 20.sp,
+              color: Color(0xffdadada),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
