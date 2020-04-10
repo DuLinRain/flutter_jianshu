@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jianshu/components/article_list.dart';
 import 'package:jianshu/pages/search_page.dart';
+import 'package:jianshu/utils/fade_route.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -86,7 +87,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         ),),
       ),
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(
+        Navigator.push(context, FadeRoute(
           builder: (BuildContext context) {
             return SearchPage();
           }
