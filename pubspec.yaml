@@ -19,6 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
   cupertino_icons: ^0.1.2
   # 字体适配插件
   flutter_screenutil: ^1.0.2

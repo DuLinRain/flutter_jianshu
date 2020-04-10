@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jianshu/components/article_list.dart';
+import 'package:jianshu/pages/search_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -70,18 +71,27 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   /// 顶部搜索栏
   Widget _buildSearchBar (BuildContext context) {
-    Widget searchBar = Container(
-      alignment: Alignment.center,
-      height: 60.w,
-      decoration: BoxDecoration(
-        color: Color(0xfff4f4f4),
-        borderRadius: BorderRadius.circular(60.w)
+    Widget searchBar = InkWell(
+      child: Container(
+        alignment: Alignment.center,
+        height: 60.w,
+        decoration: BoxDecoration(
+            color: Color(0xfff4f4f4),
+            borderRadius: BorderRadius.circular(60.w)
+        ),
+        child: Text('搜索感兴趣的内容', style: TextStyle(
+            fontSize: 22.sp,
+            color: Color(0xff999999),
+            fontWeight: FontWeight.w500
+        ),),
       ),
-      child: Text('搜索感兴趣的内容', style: TextStyle(
-        fontSize: 22.sp,
-        color: Color(0xff999999),
-        fontWeight: FontWeight.w500
-      ),),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (BuildContext context) {
+            return SearchPage();
+          }
+        ));
+      },
     );
 
     Widget container = Container(

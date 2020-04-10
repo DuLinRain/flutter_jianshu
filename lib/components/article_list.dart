@@ -27,15 +27,29 @@ class _ArticleListState extends State<ArticleList> {
       color: Color(0xff999999)
   );
 
+  /// 刷新加载器
+  GlobalKey<RefreshIndicatorState> refreshIndicator = GlobalKey();
+
+  Future<void> refreshData () {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context, width: 750, height: 1334, allowFontScaling: false);
 
-    return ListView(
-      children: <Widget>[
-        _buildArticleComponent(context),
-        _buildArticleTypeB(context)
-      ],
+    return RefreshIndicator(
+      key: refreshIndicator,
+      onRefresh: refreshData,
+      color: Theme.of(context).primaryColor,
+      child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: <Widget>[
+          _buildArticleComponent(context),
+          _buildArticleTypeB(context),
+          _buildArticleTypeC(context)
+        ],
+      ),
     );
   }
 
@@ -138,6 +152,92 @@ class _ArticleListState extends State<ArticleList> {
                         height: 140.w,
                         fit: BoxFit.cover,
                       ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          _buildNormalBottomBar(context)
+        ],
+      ),
+    );
+  }
+
+  /// 文章类型C (标题加图片)
+  Widget _buildArticleTypeC(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(
+          bottom: 20.w
+      ),
+      padding: EdgeInsets.symmetric(
+          horizontal: 40.w,
+          vertical: 30.w
+      ),
+      decoration: BoxDecoration(
+          color: Colors.white
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            '做了这么久的程序员，你知道为什么会有Lambda表达式吗？',
+            style: titleStyle,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                top: 20.w,
+                bottom: 24.w
+            ),
+            child: Flex(
+              direction: Axis.horizontal,
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10.w),
+                      bottomLeft: Radius.circular(10.w)
+                    ),
+                    child: Image.network(
+                      'https://upload-images.jianshu.io/upload_images/3356997-6b687f4a1850c966.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700/format/webp',
+                      height: 160.w,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 0,
+                  child: Container(
+                    width: 10.w,
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Image.network(
+                    'https://upload-images.jianshu.io/upload_images/3356997-6b687f4a1850c966.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700/format/webp',
+                    height: 160.w,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Expanded(
+                  flex: 0,
+                  child: Container(
+                    width: 10.w,
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.w),
+                      bottomRight: Radius.circular(10.w)
+                    ),
+                    child: Image.network(
+                      'https://upload-images.jianshu.io/upload_images/3356997-6b687f4a1850c966.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700/format/webp',
+                      height: 160.w,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )
