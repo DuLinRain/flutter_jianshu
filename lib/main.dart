@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:jianshu/pages/home_page.dart';
+import 'package:jianshu/components/tab_navigator.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
               elevation: 0
             ),
         ),
-        home: HomePage(),
+        home: TabNavigator(),
         navigatorObservers: [BotToastNavigatorObserver()],
         localizationsDelegates: [
           GlobalWidgetsLocalizations.delegate,

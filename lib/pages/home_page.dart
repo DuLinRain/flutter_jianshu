@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     // 创建一个动画
     animation = new Tween(
-        begin: double.parse('40'),
+        begin: double.parse('${80.sp}'),
         end: 0.0
     ).animate(CurvedAnimation(
       parent: animationController,
@@ -121,11 +121,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             color: Color(0xfff4f4f4),
             borderRadius: BorderRadius.circular(60.w)
         ),
-        child: Text('搜索感兴趣的内容', style: TextStyle(
-            fontSize: 22.sp,
-            color: Color(0xff999999),
-            fontWeight: FontWeight.w500
-        ),),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              IconData(0xe653, fontFamily: 'iconfont'),
+              size: 28.sp,
+              color: Color(0xff999999),
+            ),
+            Text('  搜索感兴趣的内容', style: TextStyle(
+                fontSize: 24.sp,
+                color: Color(0xff999999),
+                fontWeight: FontWeight.w500
+            ),)
+          ],
+        ),
       ),
       onTap: () {
         Navigator.push(context, FadeRoute(
