@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:jianshu/utils/localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:jianshu/pages/home_page.dart';
 
@@ -12,6 +11,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return BotToastInit(

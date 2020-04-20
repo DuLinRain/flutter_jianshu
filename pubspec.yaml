@@ -31,6 +31,10 @@ dependencies:
   pull_to_refresh: ^1.5.7
   # toast 组件
   bot_toast: ^2.4.0
+  # 加密组件
+  encrypt: ^4.0.0
+  # 事件广播插件
+  event_bus: ^1.1.1
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jianshu/components/article_list.dart';
 import 'package:jianshu/pages/search_page.dart';
+import 'package:jianshu/utils/event_bus.dart';
 import 'package:jianshu/utils/fade_route.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,7 +10,11 @@ class HomePage extends StatefulWidget {
   State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+
+  Animation<double> animation;
+
+  AnimationController animationController;
 
   /// tab栏列表
   List tabList = [
@@ -38,19 +43,55 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   /// tab 控制器
   TabController tabController;
 
+  /// 列表滚动监听器
+  var homeScrollDirectionEvent;
+
   @override
   void initState() {
     super.initState();
 
+    // 初始化tabbar
     tabController = TabController(
       length: tabList.length,
       vsync: this
     );
+
+    // 注册列表滚动监听器
+    homeScrollDirectionEvent = eventBus.on<HomeScrollDirectionEvent>().listen((event) {
+      String scrollDirection = event.scrollDirection;
+      if (scrollDirection == 'down') {
+        animationController.forward();
+      } else if (scrollDirection == 'up') {
+        animationController.reverse();
+      }
+    });
+
+    animationController = AnimationController(
+        duration: Duration(milliseconds: 100),
+        vsync: this
+    );
+
+
+    // 创建一个动画
+    animation = new Tween(
+        begin: double.parse('40'),
+        end: 0.0
+    ).animate(CurvedAnimation(
+      parent: animationController,
+      curve: Interval(
+        0.0, 1.0,
+        curve: Curves.linear,
+      ),
+    ))..addListener(() {
+      setState(() {});
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    homeScrollDirectionEvent.cancel();
+    animationController.dispose();
   }
 
   @override
@@ -102,7 +143,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       decoration: BoxDecoration(
         color: Colors.white
       ),
-      height: 80.w,
+      height: animation.value,
       child: Flex(
         direction: Axis.horizontal,
         children: <Widget>[

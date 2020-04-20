@@ -66,6 +66,11 @@ class _SearchPageState extends State<SearchPage> {
 
   /// 搜索框
   Widget _buildSearchBar (BuildContext context) {
+    double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    double contentPadding = 16.w;
+    if (devicePixelRatio < 3) {
+      contentPadding = 20.w;
+    }
     return Flex(
       direction: Axis.horizontal,
       children: <Widget>[
@@ -92,7 +97,7 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(
-                          vertical: 16.w,
+                          vertical: contentPadding,
                           horizontal: 30.w
                       ),
                       filled: true,
@@ -155,7 +160,7 @@ class _SearchPageState extends State<SearchPage> {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 30.w,
-        vertical: 10.w
+        vertical: 20.w
       ),
       decoration: BoxDecoration(
         color: Colors.white,

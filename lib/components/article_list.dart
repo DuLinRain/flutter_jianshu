@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jianshu/utils/event_bus.dart';
 
 class ArticleList extends StatefulWidget {
   @override
@@ -30,6 +31,16 @@ class _ArticleListState extends State<ArticleList> {
   /// 刷新加载器
   GlobalKey<RefreshIndicatorState> refreshIndicator = GlobalKey();
 
+  List alist = [
+    'A', 'B', 'C', 'B', 'A', 'B', 'C'
+  ];
+
+  /// 上一次滚动的距离
+  double offsetPixels = 0.0;
+
+  /// 当前滚动方向（相对于上次滚动的方向）
+  String scrollDirection = '';
+
   Future<void> refreshData () {
 
   }
@@ -42,13 +53,47 @@ class _ArticleListState extends State<ArticleList> {
       key: refreshIndicator,
       onRefresh: refreshData,
       color: Theme.of(context).primaryColor,
-      child: ListView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        children: <Widget>[
-          _buildArticleComponent(context),
-          _buildArticleTypeB(context),
-          _buildArticleTypeC(context)
-        ],
+      child: NotificationListener<ScrollNotification>(
+        child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: alist.map((item) {
+            Widget articleComponent;
+            switch (item) {
+              case 'A':
+                articleComponent = _buildArticleTypeA(context);
+                break;
+              case 'B':
+                articleComponent = _buildArticleTypeB(context);
+                break;
+              case 'C':
+                articleComponent = _buildArticleTypeC(context);
+                break;
+            }
+
+            return articleComponent;
+          }).toList(),
+        ),
+        onNotification: (ScrollNotification scrollNotification) {
+          if (scrollNotification is ScrollUpdateNotification && scrollNotification.depth == 0) {
+            double pixels = scrollNotification.metrics.pixels;
+            if (pixels > offsetPixels) {
+              // 这边处理向下滚动的逻辑
+              if (scrollDirection != 'down') {
+                eventBus.fire(HomeScrollDirectionEvent('down'));
+                scrollDirection = 'down';
+              }
+            } else {
+              // 这边处理向上滚动的逻辑
+              if (scrollDirection != 'up') {
+                eventBus.fire(HomeScrollDirectionEvent('up'));
+                scrollDirection = 'up';
+              }
+            }
+            /// 记录一下当前滚动的距离
+            offsetPixels = pixels;
+          }
+          return true;
+        },
       ),
     );
   }
