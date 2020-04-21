@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jianshu/components/article_list.dart';
 import 'package:jianshu/pages/search_page.dart';
 import 'package:jianshu/utils/event_bus.dart';
-import 'package:jianshu/utils/fade_route.dart';
+import 'package:nav_router/nav_router.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -108,6 +108,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(
+          IconData(0xe69d, fontFamily: 'iconfont'),
+          color: Colors.white,
+          size: 50.sp,
+        ),
+        onPressed: () {
+
+        },
+      ),
     );
   }
 
@@ -139,11 +150,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ),
       ),
       onTap: () {
-        Navigator.push(context, FadeRoute(
-          builder: (BuildContext context) {
-            return SearchPage();
-          }
-        ));
+        routePush(SearchPage(), RouterType.fade);
       },
     );
 
